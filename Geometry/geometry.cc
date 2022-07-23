@@ -337,6 +337,20 @@ vector<line> circTangents(circ c1, circ c2) {
     return ans;
 }
 
+// sort by argument (-Pi ~ Pi)
+int pos(pt a) {
+    if (a.Y < 0) return -1;
+    if (a.Y == 0 && 0 <= a.X) return 0;
+    return 1;
+}
+
+void ArgumentSort(vector<pt> &v) {
+  sort(begin(v), end(v), [](pt a, pt b) {
+    if (pos(a) != pos(b)) return pos(a) < pos(b);
+    return CRS(a, b) > 0;
+  });
+}
+
 int main() {
     ll t;
     cin >> t;

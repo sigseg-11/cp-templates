@@ -24,7 +24,7 @@ vector<ll> suffix(vector<ll> on){
 }
 
 
-vector<ll> pre, suff;
+vector<ll> pre = prefix(arr), suff = suffix(arr);
 
 ll getWithout(int idx){
 	return op(pre[idx-1], suff[idx+1]);
