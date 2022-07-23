@@ -1,35 +1,6 @@
-/*
-The expert at anything was once a beginner.
-*/
-
-#pragma GCC target ("avx2")
-#pragma GCC optimize ("O3")
-#pragma GCC optimize ("unroll-loops")
-
 #include <bits/stdc++.h>
 using namespace std;
 
-#include <bits/extc++.h>
-using namespace __gnu_pbds;
-
-using ll = long long;
-#define MOD int(1e9+7)
-#define all(x) (x).begin(), (x).end()
-#define rep(x, a, b) for(ll (x) = (a); (x) < (b); ++(x))
-#define sz(x) ((int)x.size())
-#define ub(v,x) upper_bound(all(v),x)
-#define lb(v,x) lower_bound(all(v),x)
-#define pb push_back
-#define ff first
-#define ss second
-
-#define vll vector<ll>
-#define pll pair<ll,ll>
-#define tll tuple<ll, ll, ll>
-#define readv(v) rep(i, 0, sz(v)){cin>>v[i];}
-
-typedef tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update> oset;
-// Debug 1
 template<typename A, typename B> ostream& operator<<(ostream &os, const pair<A, B> &p) { return os << '(' << p.first << ", " << p.second << ')'; }
 template<typename A, typename B, typename C> ostream& operator<<(ostream &os, const tuple<A, B, C> &p) { return os << '(' << get<0>(p) << ", " << get<1>(p) << ", " << get<2>(p) << ')'; }
 template<typename T_container, typename T = typename enable_if<!is_same<T_container, string>::value, typename T_container::value_type>::type> ostream& operator<<(ostream &os, const T_container &v) { os << '{'; string sep; for (const T &x : v) os << sep << x, sep = ", "; return os << '}'; }
@@ -38,24 +9,8 @@ void dbg_out() { cerr << endl; }
 template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr << ' ' << H; dbg_out(T...); }
 #define dbg(...) cerr << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-mt19937 mt_rng(chrono::steady_clock::now().time_since_epoch().count());
-// Debug 2
-template <typename T> T randint(ll a, ll b) { return uniform_int_distribution<T>(a, b)(mt_rng);}
-vector<ll> randv(int N,int l, int r) { vector<ll> v(N); generate(v.begin(), v.end(), [&](){ return randint<ll>(l, r); }); return v;}
-// Exponentiation
-ll pow(ll a, ll b, ll m = MOD) { a %= m;ll res = 1; while (b > 0) { if (b & 1) res = res * a % m; a = a * a % m; b >>= 1;}return res;}
-// Mod
-inline ll gcd(int a, int b){return b==0 ? a : gcd(b, a%b);}
-inline tll ee(ll a, ll b){if(b==0) return {a, 1, 0};int d, x, y; tie(d, x, y) = ee(b, a%b);return {d, y, x - (a/b)*y};}
-inline ll add(ll a, ll b){return (a%MOD + b%MOD)%MOD;}
-inline ll sub(ll a, ll b){return (a%MOD - b%MOD)%MOD;}
-inline ll mul(ll a, ll b){return (a%MOD *1LL* b%MOD)%MOD;}
-inline ll divi(ll a, ll b){return mul(a, pow(b, MOD-2));}
 
-// Moves
-int dxk[8] ={2,2,-2,-2,1,1,-1,-1};
-int dyk[8] ={1,-1,1,-1,2,-2,2,-2};
-// Solve
+// LCT
 struct node {
   int p = 0, c[2] = {0, 0}, pp = 0;
   bool flip = 0;
@@ -74,7 +29,7 @@ struct node {
 struct LCT {
   vector<node> t;
   LCT() {}
-  LCT(int n) : t(n + 1) {}
+  LCT(int n) : t(n + 1) {} // 1 indexed
 
   // <independant splay tree code>
   int dir(int x, int y) { return t[x].c[1] == y; }
@@ -159,6 +114,7 @@ struct LCT {
     splay(_u);
     return last;
   }
+  // link u and v undirected
   void link(int u, int v) { // u -> v
     // assert(!connected(u, v));
     make_root(v);
@@ -167,7 +123,8 @@ struct LCT {
     t[u].vsz += t[v].ssz;
     t[u].vsum += t[v].subsum;
   }
-  void cut(int u) { // cut par[u] -> u, u is non root vertex
+  // cut par[u] -> u, u is non root vertex
+  void cut(int u) { 
     access(u);
     assert(t[u].c[0] != 0);
     t[t[u].c[0]].p = 0;
@@ -193,6 +150,7 @@ struct LCT {
     splay(u);
     return u;
   }
+  // check u and v connected
   bool connected(int u, int v) {
     return find_root(u) == find_root(v);
   }
@@ -201,6 +159,7 @@ struct LCT {
     access(u); splay(u);
     return t[u].sz;
   }
+  // lca of u and v
   int lca(int u, int v) {
     // assert(connected(u, v));
     if (u == v) return u;
@@ -208,12 +167,15 @@ struct LCT {
     access(v); 
     return access(u);
   }
+  // is root in rep tree
   int is_root(int u) {
     return get_parent(u) == 0;
   }
+  // comp size of rep tree
   int component_size(int u) {
     return t[find_root(u)].ssz;
   }
+  // subtree size of node
   int subtree_size(int u) {
     int p = get_parent(u);
     if (p == 0) {
@@ -224,9 +186,11 @@ struct LCT {
     link(p, u);
     return ans;
   }
+  // rep tree sum of containing node
   long long component_sum(int u) {
     return t[find_root(u)].subsum;
   }
+  // subtree sum of node
   long long subtree_sum(int u) {
     int p = get_parent(u);
     if (p == 0) {
@@ -253,6 +217,7 @@ struct LCT {
     make_root(cur);
     return ans;
   }
+  // add x to u
   void upd(int u, int x) {
     access(u); splay(u);
     t[u].val += x;
@@ -269,31 +234,34 @@ struct LCT {
 void solve(){
     int n, q;
     cin>>n>>q;
-    LCT l(n);
-    for (int i = 0; i < n; i++) {
+    LCT l(n+1);
+    for (int i = 1; i <= n; i++) {
         int x;
         cin>>x;
         l.upd(i, x);
     }
-    for (int i = 0; i < n-1; ++i)
-    {
+    l.make_root(1);
+    for (int i = 1; i <= n-1; ++i){
         int u, v;
         cin>>u>>v;
-        --u, --v;
         l.link(u, v);
     }
+    l.make_root(1);
+    
+    // for (int i = 1; i <= n; i++) {
+    //     dbg_out(l.query(i,i));
+    // }
+    
     while(q--){
         int  ty;
         cin>>ty;
         if(ty==2){
             int u;
             cin>>u;
-            --u;
-            cout<<l.subtree_sum(u)<<endl;
+            cout<<l.query(0, u)<<endl;
         }else{
             int u, x;
             cin>>u>>x;
-            --u;
             int s = l.query(u, u);
             l.upd(u, -s);
             l.upd(u, x);
@@ -316,4 +284,3 @@ int main(){
 
     return EXIT_SUCCESS;
 }
-
