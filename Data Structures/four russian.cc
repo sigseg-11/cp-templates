@@ -78,3 +78,6 @@ struct FastRMQ {
 
 // Minimum Query
 // FastRMQ frmq(all(arr), LLONG_MAX, less<ll>()); 
+
+// Maximum Query
+// FastRMQ frmq(all(arr), LLONG_MIN, greater<ll>()); 

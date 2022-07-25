@@ -1,8 +1,4 @@
 template<typename T>
-T op(T a, T b){
-	return min(a, b);
-}
-template<typename T>
 vector<vector<T>> subarrays(vector<T> on){
 	int N = on.size();
 	vector<vector<T>> ans;
