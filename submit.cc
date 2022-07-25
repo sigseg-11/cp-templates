@@ -52,14 +52,15 @@ inline ll divi(ll a, ll b){return mul(a, pow(b, MOD-2));}
 // Moves
 int dxk[8] ={2,2,-2,-2,1,1,-1,-1};
 int dyk[8] ={1,-1,1,-1,2,-2,2,-2};
+
 // Solve
-void seive(){
-    
-}
+void seive(){}
 
 void btfc(){
     
 }
+
+// Solution
 
 void solve(){
     

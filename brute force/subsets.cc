@@ -18,18 +18,3 @@ vector<vector<int>> AllSubsets(vector<int> nums) {
     backtrack(nums, 0, resultset, curr_set);
     return resultset;
 }
-
-
-
-// Driver Code
-int main() {
-    vector<int> v{1, 2, 2};
-
-    // Function call
-    vector<vector<int>> result = AllSubsets(v);
-
-    // Print function
-    print(result);
-
-    return 0;
-}
