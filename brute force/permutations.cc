@@ -13,7 +13,6 @@ vector<vector<T>> permute(vector<T> on, bool distinct = true){
 		}while(next_permutation(begin(_on), end(_on)));
 	}else{
 		sort(begin(on), end(on));
-		int row = 0;
 		do{
 			ans.push_back(on);
 		}while(next_permutation(begin(on), end(on)));
