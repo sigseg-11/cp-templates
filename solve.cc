@@ -2,8 +2,9 @@
 The expert at anything was once a beginner.
 */
 
-// #pragma GCC optimize ("O3", "unroll-loops", "Ofast")
-// #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2")
+// #pragma comment(linker, "/stack:200000000")
+// #pragma GCC optimize("Ofast,unroll-loops,tree-vectorize")
+// #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,tune=native")
 
 #include <bits/stdc++.h>
 using namespace std;
