@@ -2,8 +2,8 @@
 The expert at anything was once a beginner.
 */
 
-#pragma GCC optimize ("O3", "unroll-loops", "Ofast")
-#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2")
+// #pragma GCC optimize ("O3", "unroll-loops", "Ofast")
+// #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2")
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -42,7 +42,9 @@ vector<long long> rvector(int N, int l, int r) { vector<long long> v(N); generat
 // Exponentiation
 #define MOD int(1e9+7)
 ll mpow(ll a, ll b, ll m = MOD) { a %= m;ll res = 1; while (b > 0) { if (b & 1) res = res * a % m; a = a * a % m; b >>= 1;}return res;}
+ll pow(ll a, ll b) {ll res = 1;while (b > 0) {if (b & 1)res = res * a;a = a * a;b >>= 1;}return res;}
 inline ll gcd(int a, int b){return b==0 ? a : gcd(b, a%b);}
+inline ll lcm(int a, int b){return (a*1LL*b)/gcd(a,b);}
 inline tll ee(ll a, ll b){if(b==0) return {a, 1, 0};int d, x, y; tie(d, x, y) = ee(b, a%b);return {d, y, x - (a/b)*y};}
 inline ll add(ll a, ll b){return (a%MOD + b%MOD)%MOD;}
 inline ll sub(ll a, ll b){return (a%MOD - b%MOD)%MOD;}
@@ -53,13 +55,12 @@ inline ll divi(ll a, ll b){return mul(a, pow(b, MOD-2));}
 int dxk[8] ={2,2,-2,-2,1,1,-1,-1};
 int dyk[8] ={1,-1,1,-1,2,-2,2,-2};
 // Solve
-void seive(){
-    
-}
+void seive(){}
 
 void btfc(){
     
 }
+// Solution
 
 void solve(){
     
