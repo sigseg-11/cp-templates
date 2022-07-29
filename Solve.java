@@ -33,12 +33,12 @@ public static void main(String args[]){
      System.out.println("Hello " + name);  
      long N = sc.nextLong(); 
 
-     for(long i=0, j = N; j>-1 && i<=N;--j,++i){
+     for(long i = 0, j = N; j > -1 && i <= N; --j,++i){
         System.out.print(i+" "+j);
      }
      ArrayList<Integer> al = new ArrayList<Integer>();
      al.forEach((n)->{ System.out.println(n);});
-    Collections.sort(al, (o1, o2) -> (o1 > o2) ? -1 : (o1 < o2) ? 1 : 0);
+     Collections.sort(al, (o1, o2) -> (o1 > o2) ? -1 : (o1 < o2) ? 1 : 0);
 }
 
 // End
