@@ -12,6 +12,7 @@ long long my_gcd(long long x, long long y) {
 long long my_lcm(long long x, long long y) {
   return 1LL * x / my_gcd(x, y) * y;
 }
+
 #define gcd my_gcd
 #define lcm my_lcm
 
