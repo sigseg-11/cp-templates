@@ -25,22 +25,22 @@ void MultiplePack(int cost, int value, int amount) {  // cost, value, quantity
             amount−= k;
             k <<= 1;  // k is shifted to the left by one, that is, k*=2
         }
-        ZeroOnePack(amount * cost, amount * value);  // Don't forget this, this is the last coefficient, which is the result of subtracting all previous coefficients from n[i]
+        ZeroOnePack(amount * cost, amount * value);  // Don't forget this, this is the last coefficient, which is the result of subtracting all previous coefficients from quantity[i]
     }
 }
 
-void knapsack(vector<int> c, vector<int> w, vector<int> n, vector<int> type){
+void knapsack(vector<int> cost, vector<int> weight, vector<int> quantity, vector<int> type){
     int N = type.size();
     dp.resize(N + 1);
     for (int i = 0; i < N; i++) {
         // if item i belongs to 01 backpack 
         if(type[i]==1)
-            ZeroOnePack(c[i], w[i]) ;
+            ZeroOnePack(cost[i], weight[i]) ;
         // else if The i - th item belongs to the complete backpack 
         else if (type[i]==2)
-            CompletePack(c[i], w[i]) ;
+            CompletePack(cost[i], weight[i]) ;
         // else if The i - th item belongs to a multipack 
         else if (type[i]==3)
-            MultiplePack(c[i], w[i], n[i]);
+            MultiplePack(cost[i], weight[i], quantity[i]);
     }
 }
